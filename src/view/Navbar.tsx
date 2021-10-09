@@ -4,7 +4,7 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
 	height: theme.spacing(8.5),
 	boxShadow: theme.shadows[5],
 	zIndex: 100,
-	backgroundColor: theme.palette.primary.main,
+	backgroundColor: theme.palette.primary.light,
 }));
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({

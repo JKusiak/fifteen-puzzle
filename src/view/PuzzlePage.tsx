@@ -1,5 +1,5 @@
 import { styled,} from "@mui/material";
-import Puzzle from "./Board";
+import Board from "./Board";
 
 const PageContainer = styled('div')(({ theme }) => ({
 	display: 'flex',
@@ -14,10 +14,10 @@ const PageContainer = styled('div')(({ theme }) => ({
 const PuzzlePage = () => {
 	
 
-	return(
+	return (
 		<>
 			<PageContainer>
-				<Puzzle/>
+				<Board/>
 			</PageContainer>
 		</>
 	)
