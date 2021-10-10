@@ -1,16 +1,24 @@
-import { CssBaseline, styled, ThemeProvider } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { Helmet } from "react-helmet";
 import { theme } from "./theme";
-import Navbar from "./view/Navbar";
+import Navbar from "./view/Navbar/Navbar";
 import PuzzlePage from "./view/PuzzlePage";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { createContext, Dispatch, useReducer } from "react";
+import { Action, gameReducer } from "./logic/reducers/GameReducer";
+import { initiateGame } from "./logic/utils/initiateGame";
+import { IGame } from "./types";
+
+
+export const GameReducerContext = createContext<{ gameState: IGame, dispatch: Dispatch<Action> }>({} as any);
 
 
 const App = () => {
-	
+	const [gameState, dispatch] = useReducer(gameReducer, initiateGame(4, 4));
 
 	return (
-		<ThemeProvider theme={theme}>
+		<GameReducerContext.Provider value={{ gameState, dispatch }}>
+			<ThemeProvider theme={theme}>
 			<CssBaseline>
 				<Helmet>
 					<title>Fifteen</title>
@@ -19,14 +27,15 @@ const App = () => {
 				</Helmet>
 
 				<Router>
-						<Navbar />
-						<Route path="/">
-							<PuzzlePage/>
-						</Route>
+					<Navbar />
+					<Route path="/">
+						<PuzzlePage/>
+					</Route>
 				</Router>
 				
 			</CssBaseline>
 		</ThemeProvider>
+		</GameReducerContext.Provider>
 	);
 }
 

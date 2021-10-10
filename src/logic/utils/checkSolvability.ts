@@ -18,7 +18,7 @@ function getBlankTileRow(board: number[][], N: number) {
 	// start from bottom-right corner of matrix
 	for (let i = N - 1; i >= 0; i--) {
 		for (let j = N - 1; j >= 0; j--) {
-			if (board[i][j] == 0) {
+			if (board[i][j] === 0) {
 				return N - i;
 			}
 		}

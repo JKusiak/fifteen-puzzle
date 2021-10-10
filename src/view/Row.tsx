@@ -1,22 +1,24 @@
-import { AppBar, styled } from "@mui/material";
+import { styled } from "@mui/material";
 import { FC } from "react";
 import Tile from "./Tile";
 
-interface RowProps {
-	rowContent: number[],
-}
 
 const RowContainer = styled('div')(({ theme }) => ({
 	display: 'flex',
 }));
 
+interface RowProps {
+	rowContent: number[],
+	rowNumber: number,
+}
+
 const Row: FC<RowProps> = (props) => {
 	
 	function displayRow(row: number[]) {
 		return(
-			row.map((value: number) => {
+			row.map((value: number, columnNumber: number,) => {
 				return (
-					<Tile value={value}/>
+					<Tile value={value} rowNumber={props.rowNumber} columnNumber={columnNumber}/>
 				)
 			})
 		)

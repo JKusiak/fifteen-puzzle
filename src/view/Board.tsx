@@ -1,27 +1,29 @@
-import { AppBar, styled } from "@mui/material";
-import { useEffect, useReducer, useState } from "react";
-import { ActionTypes, boardContentReducer } from "../logic/reducers/BoardReducer";
-import { createBoard } from "../logic/utils/createBoard";
+import { styled } from "@mui/material";
+import { useContext, useEffect } from "react";
+import { GameReducerContext } from "../App";
+import { ActionTypes } from "../logic/reducers/GameReducer";
 import Row from "./Row";
-import Tile from "./Tile";
 
 
 const BoardFrame = styled('div')(({ theme }) => ({
-	height: '600px',
-	width: '600px',
+	maxHeight: '500px',
+	maxWidth: '500px',
 }));
 
 
 const Board = () => {
-	// for now has to be NxN type grid, no way to check solvability for non-square matrix
-	const newBoard = createBoard(4, 4);
-	const [boardState, dispatch] = useReducer(boardContentReducer, newBoard);
+	const { gameState, dispatch } = useContext(GameReducerContext);
+
+	useEffect(() => {
+		dispatch({ type: ActionTypes.CreateNewBoard, payload: {rows: gameState.rows, columns: gameState.columns}})
+	}, [gameState.rows, gameState.columns])
+
 
 	function displayBoard() {
 		return (
-			boardState.map((row: number[]) => {
+			gameState.board.map((row: number[], rowNumber: number) => {
 				return (
-					<Row rowContent={row} />
+					<Row rowContent={row} rowNumber={rowNumber}/>
 				)
 			})
 		)

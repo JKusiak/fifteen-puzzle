@@ -1,5 +1,9 @@
 import { Card, styled, SvgIcon } from "@mui/material";
-import { FC } from "react";
+import { FC, useContext } from "react";
+import { GameReducerContext } from "../App";
+import { ActionTypes } from "../logic/reducers/GameReducer";
+import { isFinished } from "../logic/utils/checkFinished";
+import { isMovable } from "../logic/utils/checkMovability";
 
 const NumberCard = styled(Card)(({ theme }) => ({
 	display: 'flex',
@@ -43,20 +47,37 @@ const StyledNumber = styled(SvgIcon)(({ theme }) => ({
 
 interface TileProps {
 	value: number,
+	rowNumber: number,
+	columnNumber: number,
 }
 
 const Tile: FC<TileProps> = (props) => {
-	
+	const { gameState, dispatch } = useContext(GameReducerContext);
 	const isBlank = props.value.valueOf() === 0 ? true : false;
+
+	function handleClick() {
+		const swapPayload = {
+			board: gameState.board,
+			xPos: props.rowNumber,
+			yPos: props.columnNumber,
+		}
+		if(isMovable(gameState.board, props.rowNumber, props.columnNumber)) {
+			dispatch({type: ActionTypes.SwapTiles, payload: swapPayload});
+			dispatch({type: ActionTypes.AddMove, payload: {}});
+		}
+		
+		if (isFinished(gameState.board)) {
+			dispatch({type: ActionTypes.SetSolved, payload: true});
+		}
+	}
 
 	return (
 		<>
-			{isBlank
-			// no clue why text y offset must be 20, just don't touch, it works perfectly
+			{// no clue why text y offset must be 20, just don't touch, it works perfectly
+			isBlank
 				? <EmptyCard/>
-				: <NumberCard>
+				: <NumberCard onClick={handleClick}>
 					<StyledNumber>
-						
 						<text x='50%' y='20' text-anchor='middle'>
 							{props.value}
 						</text>
