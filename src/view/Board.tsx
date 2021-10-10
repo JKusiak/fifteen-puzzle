@@ -1,5 +1,5 @@
 import { styled } from "@mui/material";
-import { useContext, useEffect } from "react";
+import { Fragment, useContext, useEffect } from "react";
 import { GameReducerContext } from "../App";
 import { ActionTypes } from "../logic/reducers/GameReducer";
 import Row from "./Row";
@@ -23,7 +23,9 @@ const Board = () => {
 		return (
 			gameState.board.map((row: number[], rowNumber: number) => {
 				return (
-					<Row rowContent={row} rowNumber={rowNumber}/>
+					<Fragment key={rowNumber}>
+						<Row rowContent={row} rowNumber={rowNumber}/>
+					</Fragment>
 				)
 			})
 		)

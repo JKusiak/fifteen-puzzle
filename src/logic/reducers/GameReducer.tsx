@@ -74,7 +74,7 @@ export const gameReducer = (state: IGame, action: Action) => {
 		case ActionTypes.SwapTiles:
 			return {
 				...state,
-				board: swapTiles(payload.board, payload.xPos, payload.yPos),
+				board: swapTiles(payload.board, payload.xPos, payload.yPos, payload.xMovPos, payload.yMovPos),
 				// moves: state.moves +1,
 			}
 		case ActionTypes.SetSolved:

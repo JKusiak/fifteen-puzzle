@@ -1,5 +1,5 @@
 import { styled } from "@mui/material";
-import { FC } from "react";
+import { FC, Fragment } from "react";
 import Tile from "./Tile";
 
 
@@ -18,7 +18,9 @@ const Row: FC<RowProps> = (props) => {
 		return(
 			row.map((value: number, columnNumber: number,) => {
 				return (
-					<Tile value={value} rowNumber={props.rowNumber} columnNumber={columnNumber}/>
+					<Fragment key={columnNumber}>
+						<Tile value={value} rowNumber={props.rowNumber} columnNumber={columnNumber}/>
+					</Fragment>
 				)
 			})
 		)

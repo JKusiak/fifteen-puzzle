@@ -25,8 +25,8 @@ export function isMovable(board: number[][], xPos: number, yPos: number) {
 	const movable = tiles.find(tile => tile?.val === 0);
 
 	if (movable) {
-		return true;
+		return {movable: true, tile: movable};
 	}
 
-	return false;
+	return {movable: false, tile: null};;
 }

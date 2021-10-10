@@ -56,12 +56,17 @@ const Tile: FC<TileProps> = (props) => {
 	const isBlank = props.value.valueOf() === 0 ? true : false;
 
 	function handleClick() {
-		const swapPayload = {
-			board: gameState.board,
-			xPos: props.rowNumber,
-			yPos: props.columnNumber,
-		}
-		if(isMovable(gameState.board, props.rowNumber, props.columnNumber)) {
+		const {movable, tile} = isMovable(gameState.board, props.rowNumber, props.columnNumber);
+
+		if (movable) {
+			const swapPayload = {
+				board: gameState.board,
+				xPos: props.rowNumber,
+				yPos: props.columnNumber,
+				xMovPos: tile?.xPos,
+				yMovPos: tile?.yPos,
+			}
+
 			dispatch({type: ActionTypes.SwapTiles, payload: swapPayload});
 			dispatch({type: ActionTypes.AddMove, payload: {}});
 		}
@@ -78,7 +83,7 @@ const Tile: FC<TileProps> = (props) => {
 				? <EmptyCard/>
 				: <NumberCard onClick={handleClick}>
 					<StyledNumber>
-						<text x='50%' y='20' text-anchor='middle'>
+						<text x='50%' y='20' textAnchor='middle'>
 							{props.value}
 						</text>
 					</StyledNumber>
