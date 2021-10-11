@@ -6,12 +6,13 @@ import { ActionTypes } from "../logic/reducers/GameReducer";
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
 	backgroundColor: theme.palette.secondary.dark,
-	padding: theme.spacing(0.1),
+	padding: theme.spacing(0.05),
 	marginLeft: theme.spacing(1),
 	'&:hover': {
 		backgroundColor: theme.palette.secondary.main,
 	},
 	'& > svg': {
+		transform: 'scale(0.8)',
 		color: theme.palette.primary.main,
 	}
 }));

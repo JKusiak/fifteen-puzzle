@@ -35,7 +35,7 @@ const PuzzlePage = () => {
 				<MovesCounter>Moves: {gameState.moves} </MovesCounter>
 				<Board/>
 				<RefreshButton />
-				{gameState.isSolved && 
+				{gameState.isFinished && 
 					<WinCommunicate>
 						Puzzle solved 🎉
 					</WinCommunicate>

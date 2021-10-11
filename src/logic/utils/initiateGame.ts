@@ -1,4 +1,4 @@
-import { IGame } from "../../types";
+import { Algorithm, Heuristic, IGame } from "../../types";
 import { createBoard } from "./createBoard";
 
 export function initiateGame(rows:number, columns: number) {
@@ -9,7 +9,11 @@ export function initiateGame(rows:number, columns: number) {
 		columns: columns,
 		moves: 0,
 		board: newBoard,
-		isSolved: false,
+		algorithm: Algorithm.NONE,
+		heuristic: Heuristic.NONE,
+		isPlayed: false,
+		playSpeed: 50,
+		isFinished: false,
 	}
 	
 	return game;

@@ -30,6 +30,8 @@ const EmptyCard = styled('div')(({ theme }) => ({
 	display: 'flex',
 	flex: '1 1 0px',
 	height: 'auto',
+	//padding to compensate for the border in number card
+	padding: '2px',
 	margin: theme.spacing(1),
 	'&:before': {
 		content: '""',

@@ -1,6 +1,10 @@
 import { AppBar, styled, Toolbar } from "@mui/material";
+import PlayButton from "./Subcomponents/PlayButton";
 import ColumnsMenu from "./Subcomponents/ColumnsMenu";
 import RowsMenu from "./Subcomponents/RowsMenu";
+import AlgorithmsList from "./Subcomponents/AlgorithmsList";
+import HeuristicsList from "./Subcomponents/HeuristicsList";
+import SpeedSlider from "./Subcomponents/SpeedSlider";
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
 	height: theme.spacing(8.5),
@@ -27,32 +31,36 @@ const LeftContainer = styled('div')(({ theme }) => ({
 const Logo = styled('span')(({ theme }) => ({
 	fontSize: '26px',
 	fontWeight: 'bold',
-	marginRight: theme.spacing(6),
+	marginRight: theme.spacing(4),
 }));
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
 
 const Navbar = () => {
-	
-	
-	return(
+
+	return (
 		<>
-		<Offset/>
-		<StyledAppBar>
-			<StyledToolbar>
-				<LeftContainer>
-					<Logo>N-Puzzle</Logo>
-					<RowsMenu/>
-					<ColumnsMenu/>
-				</LeftContainer>
-				
-				
-				<RightContainer>
-					
-				</RightContainer>
-			</StyledToolbar>
-		</StyledAppBar>
+			<Offset />
+			<StyledAppBar>
+				<StyledToolbar>
+					<LeftContainer>
+						<Logo>N-Puzzle</Logo>
+						<RowsMenu />
+						<ColumnsMenu />
+						
+					</LeftContainer>
+
+
+					<RightContainer>
+						
+						<AlgorithmsList />
+						<HeuristicsList />
+						<SpeedSlider />
+						<PlayButton />
+					</RightContainer>
+				</StyledToolbar>
+			</StyledAppBar>
 		</>
 	)
 }

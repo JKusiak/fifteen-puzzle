@@ -19,6 +19,10 @@ export enum ActionTypes {
 	DeleteRow = 'DELETE ROW',
 	AddMove = 'ADD MOVE',
 	SwapTiles = 'SWAP TILES',
+	ChooseAlgorithm = 'CHOOSE ALGORITHM',
+	ChooseHeuristic = 'CHOOSE HEURISTIC',
+	SetPlayed = 'SET PLAYED',
+	SetSpeed = 'SET SPEED',
 	SetSolved = 'SET SOLVED',
 }
 
@@ -69,7 +73,7 @@ export const gameReducer = (state: IGame, action: Action) => {
 		case ActionTypes.AddMove:
 			return {
 				...state,
-				moves: state.moves +1,
+				moves: state.moves + 1,
 			}
 		case ActionTypes.SwapTiles:
 			return {
@@ -77,10 +81,30 @@ export const gameReducer = (state: IGame, action: Action) => {
 				board: swapTiles(payload.board, payload.xPos, payload.yPos, payload.xMovPos, payload.yMovPos),
 				// moves: state.moves +1,
 			}
+		case ActionTypes.ChooseAlgorithm:
+			return {
+				...state,
+				algorithm: payload,
+			}
+		case ActionTypes.ChooseHeuristic:
+			return {
+				...state,
+				heuristic: payload,
+			}
+		case ActionTypes.SetPlayed:
+			return {
+				...state,
+				isPlayed: payload,
+			}
+		case ActionTypes.SetSpeed:
+			return {
+				...state,
+				playSpeed: payload,
+			}
 		case ActionTypes.SetSolved:
 			return {
 				...state,
-				isSolved: payload,
+				isFinished: payload,
 			}
 		default:
 			return state;
