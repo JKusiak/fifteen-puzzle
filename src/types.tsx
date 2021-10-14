@@ -16,6 +16,11 @@ export interface ITile {
 	value: number;
 }
 
+export interface INeighbour {
+	direction: string;
+	tile: ITile;
+}
+
 export enum Algorithm {
 	NONE = "None",
 	BrFS = "Breadth First Search",

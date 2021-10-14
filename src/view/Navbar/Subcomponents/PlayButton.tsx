@@ -6,6 +6,7 @@ import PauseIcon from '@mui/icons-material/Pause';
 import { ActionTypes } from "../../../logic/reducers/GameReducer";
 import { chooseAlgorithm } from "../../../logic/algorithms/chooseAlgorithm";
 import { Algorithm } from "../../../types";
+import { isFinished } from "../../../logic/utils/checkFinished";
 
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
@@ -27,17 +28,21 @@ interface PlayProps {
 const PlayButton: FC<PlayProps> = (props) => {
 	const [isPlaying, setPlaying] = useState<boolean>(false);
 	const { gameState, dispatch } = useContext(GameReducerContext);
-	
+
 	useEffect(() => {
 		if (isPlaying && gameState.algorithm !== Algorithm.NONE) {
-			const solvedBoard = chooseAlgorithm(gameState.board, gameState.algorithm);
+			const solution = chooseAlgorithm(gameState.board, gameState.algorithm);
+			let iterateDelay: number = 0;
 
-			for (const boardState of solvedBoard) {
-				// console.log(boardState);
-				// if (gameState.playSpeed !== 100) {
-				// 	setTimeout(() => {}, 100 / gameState.playSpeed);
-				// }
-				dispatch({type: ActionTypes.UpdateBoard, payload: boardState});
+			for (const boardState of solution) {
+				setTimeout(() => {
+					dispatch({ type: ActionTypes.UpdateBoard, payload: boardState });
+					console.log(gameState.moves);
+					if (isFinished(boardState as number[][])) {
+						dispatch({ type: ActionTypes.SetSolved, payload: true });
+					}
+				}, ((10000 * iterateDelay) / gameState.playSpeed ));
+				iterateDelay++;
 			}
 		}
 	}, [isPlaying])
@@ -46,7 +51,7 @@ const PlayButton: FC<PlayProps> = (props) => {
 	return (
 		<>
 			<StyledIconButton onClick={() => setPlaying(!isPlaying)}>
-				{isPlaying ? <PauseIcon/> : <PlayIcon/>}		
+				{isPlaying ? <PauseIcon /> : <PlayIcon />}
 			</StyledIconButton>
 		</>
 	)

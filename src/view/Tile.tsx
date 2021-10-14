@@ -1,5 +1,5 @@
 import { Card, styled, SvgIcon } from "@mui/material";
-import { FC, useContext } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { GameReducerContext } from "../App";
 import { ActionTypes } from "../logic/reducers/GameReducer";
 import { isFinished } from "../logic/utils/checkFinished";
@@ -54,7 +54,15 @@ interface TileProps {
 
 const Tile: FC<TileProps> = (props) => {
 	const { gameState, dispatch } = useContext(GameReducerContext);
+	const [moved, setMoved] = useState(false);
 	const isBlank = props.tile.value.valueOf() === 0 ? true : false;
+
+	useEffect(() => {
+		if (isFinished(gameState.board)) {
+			dispatch({type: ActionTypes.SetSolved, payload: true});
+		}
+	}, [moved])
+
 
 	function handleClick() {
 		const {movable, movableTile} = isMovable(gameState.board, props.tile);
@@ -66,11 +74,8 @@ const Tile: FC<TileProps> = (props) => {
 			}
 
 			dispatch({type: ActionTypes.SwapTiles, payload: swapPayload});
-		}
-		
-		if (isFinished(gameState.board)) {
-			dispatch({type: ActionTypes.SetSolved, payload: true});
-		}
+			setMoved(!moved);
+		}		
 	}
 
 	return (

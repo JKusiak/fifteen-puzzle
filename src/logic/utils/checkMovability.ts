@@ -2,12 +2,12 @@ import { ITile } from "../../types";
 import { getNeighbours } from "../algorithms/getNeighbours";
 
 export function isMovable(board: number[][], tile: ITile) {
-	const tiles = getNeighbours(board, tile);
+	const neighbours = getNeighbours(board, tile);
 
-	const movableTile = tiles.find(tile => tile.value === 0);
+	const movableTile = neighbours.find(neighbour => neighbour.tile.value === 0);
 
 	if (movableTile) {
-		return {movable: true, movableTile: movableTile};
+		return {movable: true, movableTile: movableTile.tile};
 	}
 
 	return {movable: false, movableTile: null};;

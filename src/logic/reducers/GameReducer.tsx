@@ -100,6 +100,7 @@ export const gameReducer = (state: IGame, action: Action) => {
 			return {
 				...state,
 				board: payload,
+				moves: state.moves + 1,
 			}
 		case ActionTypes.SetSolved:
 			return {
