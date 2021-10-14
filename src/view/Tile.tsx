@@ -4,6 +4,7 @@ import { GameReducerContext } from "../App";
 import { ActionTypes } from "../logic/reducers/GameReducer";
 import { isFinished } from "../logic/utils/checkFinished";
 import { isMovable } from "../logic/utils/checkMovability";
+import { ITile } from "../types";
 
 const NumberCard = styled(Card)(({ theme }) => ({
 	display: 'flex',
@@ -48,29 +49,23 @@ const StyledNumber = styled(SvgIcon)(({ theme }) => ({
 
 
 interface TileProps {
-	value: number,
-	rowNumber: number,
-	columnNumber: number,
+	tile: ITile,
 }
 
 const Tile: FC<TileProps> = (props) => {
 	const { gameState, dispatch } = useContext(GameReducerContext);
-	const isBlank = props.value.valueOf() === 0 ? true : false;
+	const isBlank = props.tile.value.valueOf() === 0 ? true : false;
 
 	function handleClick() {
-		const {movable, tile} = isMovable(gameState.board, props.rowNumber, props.columnNumber);
-
+		const {movable, movableTile} = isMovable(gameState.board, props.tile);
 		if (movable) {
 			const swapPayload = {
 				board: gameState.board,
-				xPos: props.rowNumber,
-				yPos: props.columnNumber,
-				xMovPos: tile?.xPos,
-				yMovPos: tile?.yPos,
+				clickedTile: props.tile,
+				movableTile: movableTile,
 			}
 
 			dispatch({type: ActionTypes.SwapTiles, payload: swapPayload});
-			dispatch({type: ActionTypes.AddMove, payload: {}});
 		}
 		
 		if (isFinished(gameState.board)) {
@@ -86,7 +81,7 @@ const Tile: FC<TileProps> = (props) => {
 				: <NumberCard onClick={handleClick}>
 					<StyledNumber>
 						<text x='50%' y='20' textAnchor='middle'>
-							{props.value}
+							{props.tile.value}
 						</text>
 					</StyledNumber>
 				</NumberCard>

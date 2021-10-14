@@ -1,32 +1,14 @@
+import { ITile } from "../../types";
+import { getNeighbours } from "../algorithms/getNeighbours";
 
-export function isMovable(board: number[][], xPos: number, yPos: number) {
-	const height = board.length;
-	const width = board[0].length;
-	let tileAbove, tileBelow, tileLeft, tileRight = {xPos: 0, yPos: 0, val: 1};
+export function isMovable(board: number[][], tile: ITile) {
+	const tiles = getNeighbours(board, tile);
 
-	if (xPos - 1 >= 0) {
-		tileLeft = {xPos: xPos - 1, yPos: yPos, val: board[xPos - 1][yPos]};
+	const movableTile = tiles.find(tile => tile.value === 0);
+
+	if (movableTile) {
+		return {movable: true, movableTile: movableTile};
 	}
 
-	if (xPos + 1 < width) {
-		tileRight = {xPos: xPos + 1, yPos: yPos, val: board[xPos + 1][yPos]};
-	}
-
-	if (yPos - 1 >= 0) {
-		tileAbove = {xPos: xPos, yPos: yPos - 1, val: board[xPos][yPos - 1]};
-	}
-
-	if (yPos + 1 < height) {
-		tileBelow = {xPos: xPos, yPos: yPos + 1, val: board[xPos][yPos + 1]};
-	}
-
-	const tiles = [tileAbove, tileBelow, tileLeft, tileRight];
-
-	const movable = tiles.find(tile => tile?.val === 0);
-
-	if (movable) {
-		return {movable: true, tile: movable};
-	}
-
-	return {movable: false, tile: null};;
+	return {movable: false, movableTile: null};;
 }

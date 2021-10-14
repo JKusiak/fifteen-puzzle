@@ -1,7 +1,10 @@
+import { ITile } from "../../types";
 
-export function swapTiles(board: number[][], xPos: number, yPos: number, xMovPos: number, yMovPos: number) {
-	board[xMovPos][yMovPos] = board[xPos][yPos];
-	board[xPos][yPos] = 0;
+export function swapTiles(board: number[][], clickedTile: ITile, movableTile: ITile) {
+	const newBoard = [...board];
 
-	return board;
+	newBoard[movableTile.yPos][movableTile.xPos] = newBoard[clickedTile.yPos][clickedTile.xPos];
+	newBoard[clickedTile.yPos][clickedTile.xPos] = 0;
+
+	return newBoard;
 }

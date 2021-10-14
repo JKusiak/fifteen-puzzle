@@ -17,12 +17,12 @@ export enum ActionTypes {
 	DeleteColumn = 'DELETE COLUMN',
 	AddRow = 'ADD ROW',
 	DeleteRow = 'DELETE ROW',
-	AddMove = 'ADD MOVE',
 	SwapTiles = 'SWAP TILES',
 	ChooseAlgorithm = 'CHOOSE ALGORITHM',
 	ChooseHeuristic = 'CHOOSE HEURISTIC',
 	SetPlayed = 'SET PLAYED',
 	SetSpeed = 'SET SPEED',
+	UpdateBoard = 'UPDATE BOARD',
 	SetSolved = 'SET SOLVED',
 }
 
@@ -70,16 +70,11 @@ export const gameReducer = (state: IGame, action: Action) => {
 			} else {
 				return state;
 			}
-		case ActionTypes.AddMove:
-			return {
-				...state,
-				moves: state.moves + 1,
-			}
 		case ActionTypes.SwapTiles:
 			return {
 				...state,
-				board: swapTiles(payload.board, payload.xPos, payload.yPos, payload.xMovPos, payload.yMovPos),
-				// moves: state.moves +1,
+				board: swapTiles(payload.board, payload.clickedTile, payload.movableTile),
+				moves: state.moves + 1,
 			}
 		case ActionTypes.ChooseAlgorithm:
 			return {
@@ -100,6 +95,11 @@ export const gameReducer = (state: IGame, action: Action) => {
 			return {
 				...state,
 				playSpeed: payload,
+			}
+		case ActionTypes.UpdateBoard:
+			return {
+				...state,
+				board: payload,
 			}
 		case ActionTypes.SetSolved:
 			return {

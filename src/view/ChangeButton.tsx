@@ -28,6 +28,7 @@ const ChangeButton: FC<ChangeProps> = (props) => {
 
 	function changeValue() {
 		dispatch({ type: props.actionType, payload: {}});
+		dispatch({ type: ActionTypes.SetSolved, payload: false});
 	}
 
 	return (

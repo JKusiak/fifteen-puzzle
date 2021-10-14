@@ -10,6 +10,12 @@ export interface IGame {
 	isFinished: boolean;
 }
 
+export interface ITile {
+	xPos: number;
+	yPos: number;
+	value: number;
+}
+
 export enum Algorithm {
 	NONE = "None",
 	BrFS = "Breadth First Search",
