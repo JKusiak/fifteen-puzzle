@@ -1,5 +1,6 @@
 import { ITile } from "../../types";
-import { getNeighbours } from "../algorithms/getNeighbours";
+import { getNeighbours } from "./getNeighbours";
+
 
 export function isMovable(board: number[][], tile: ITile) {
 	const neighbours = getNeighbours(board, tile);

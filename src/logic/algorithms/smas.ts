@@ -1,24 +1,25 @@
 import { isFinished } from "../utils/checkFinished";
+import { getEmptyTile } from "../utils/getEmptyTile";
+import { getNeighbours } from "../utils/getNeighbours";
 import { swapTiles } from "../utils/swapTiles";
-import { getEmptyTile } from "./getEmptyTile";
-import { getNeighbours } from "./getNeighbours";
 
-export function* breadthFirstSearch(board: number[][]) {
+//TODO
+export function* simplifiedMemoryBoundedAStar(board: number[][]) {
 	let searchNum = 0;
-	const visited = new Set(JSON.stringify(board));
 	const toVisit = [board];
-	const directions =[]
+	const visited = new Set(JSON.stringify(board));
+	const directions = [];
 
 	while (toVisit.length > 0) {
-		const currentBoard = toVisit.shift() as number[][];
+		const currentBoard = toVisit.pop() as number[][];
 		yield currentBoard;
-		searchNum++;
-
+		
 		if (isFinished(currentBoard)) {
-			console.log(`Solved, final state: ${currentBoard} \n Steps to solve: ${directions}`);
+			console.log(`Solved, final state: ${currentBoard} \n Steps to solve: ${directions} \n Moves: ${searchNum}`);
 			return currentBoard;
 		}
-		console.log(JSON.stringify(currentBoard));
+
+		searchNum++;
 
 		const emptyTile = getEmptyTile(currentBoard);
 		const neighbours = getNeighbours(currentBoard, emptyTile);
@@ -36,4 +37,6 @@ export function* breadthFirstSearch(board: number[][]) {
 			}
 		}
 	}
+
+	console.log(`Could not solve, NxM board not solvable \n Moves: ${searchNum}`);
 }

@@ -19,6 +19,7 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
 		transform: 'scale(1.1)',
 		color: theme.palette.primary.main,
 	},
+	boxShadow: theme.shadows[3],
 }));
 
 interface PlayProps {
@@ -28,6 +29,7 @@ interface PlayProps {
 const PlayButton: FC<PlayProps> = (props) => {
 	const [isPlaying, setPlaying] = useState<boolean>(false);
 	const { gameState, dispatch } = useContext(GameReducerContext);
+	let timeouts: NodeJS.Timeout[] = [];
 
 	useEffect(() => {
 		if (isPlaying && gameState.algorithm !== Algorithm.NONE) {
@@ -35,18 +37,16 @@ const PlayButton: FC<PlayProps> = (props) => {
 			let iterateDelay: number = 0;
 
 			for (const boardState of solution) {
-				setTimeout(() => {
+				timeouts.push(setTimeout(() => {
 					dispatch({ type: ActionTypes.UpdateBoard, payload: boardState });
-					console.log(gameState.moves);
 					if (isFinished(boardState as number[][])) {
 						dispatch({ type: ActionTypes.SetSolved, payload: true });
 					}
-				}, ((10000 * iterateDelay) / gameState.playSpeed ));
+				}, ((10000 * iterateDelay) / gameState.playSpeed )));
 				iterateDelay++;
 			}
 		}
 	}, [isPlaying])
-
 
 	return (
 		<>

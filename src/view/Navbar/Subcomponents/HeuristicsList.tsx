@@ -17,7 +17,8 @@ const StyledButton = styled(Button)(({ theme }) => ({
 	'& > svg': {
 		transform: 'scale(1.1)',
 		color: theme.palette.primary.main,
-	}
+	},
+	boxShadow: theme.shadows[2],
 }));
 
 const StyledMenu = styled(Menu)(({ theme }) => ({

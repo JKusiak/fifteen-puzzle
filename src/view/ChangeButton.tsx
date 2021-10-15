@@ -14,7 +14,8 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
 	'& > svg': {
 		transform: 'scale(0.8)',
 		color: theme.palette.primary.main,
-	}
+	},
+	boxShadow: theme.shadows[2],
 }));
 
 interface ChangeProps {
