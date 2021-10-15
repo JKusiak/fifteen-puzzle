@@ -1,4 +1,4 @@
-import { IGame } from "../../types";
+import { Game } from "../../types";
 import { createBoard } from "../utils/createBoard";
 import { swapTiles } from "../utils/swapTiles";
 
@@ -31,7 +31,7 @@ export type Action = {
 	payload: any,
 }
 
-export const gameReducer = (state: IGame, action: Action) => {
+export const gameReducer = (state: Game, action: Action) => {
 	const { type, payload } = action;
 
 	switch (type) {

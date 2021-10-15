@@ -4,7 +4,7 @@ import { GameReducerContext } from "../App";
 import { ActionTypes } from "../logic/reducers/GameReducer";
 import { isFinished } from "../logic/utils/checkFinished";
 import { isMovable } from "../logic/utils/checkMovability";
-import { ITile } from "../types";
+import { Tile } from "../types";
 
 const NumberCard = styled(Card)(({ theme }) => ({
 	display: 'flex',
@@ -49,10 +49,10 @@ const StyledNumber = styled(SvgIcon)(({ theme }) => ({
 
 
 interface TileProps {
-	tile: ITile,
+	tile: Tile,
 }
 
-const Tile: FC<TileProps> = (props) => {
+const TileElem: FC<TileProps> = (props) => {
 	const { gameState, dispatch } = useContext(GameReducerContext);
 	const [moved, setMoved] = useState(false);
 	const isBlank = props.tile.value.valueOf() === 0 ? true : false;
@@ -95,4 +95,4 @@ const Tile: FC<TileProps> = (props) => {
 	)
 }
 
-export default Tile;
+export default TileElem;

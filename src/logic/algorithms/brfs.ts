@@ -1,6 +1,6 @@
 import { isFinished } from "../utils/checkFinished";
 import { swapTiles } from "../utils/swapTiles";
-import { getEmptyTile } from "../utils/getEmptyTile";
+import { getTile } from "../utils/getTile";
 import { getNeighbours } from "../utils/getNeighbours";
 
 
@@ -20,7 +20,7 @@ export function* breadthFirstSearch(board: number[][]) {
 			return currentBoard;
 		}
 
-		const emptyTile = getEmptyTile(currentBoard);
+		const emptyTile = getTile(currentBoard, 0);
 		const neighbours = getNeighbours(currentBoard, emptyTile);
 		
 		for (let neighbour of neighbours) {

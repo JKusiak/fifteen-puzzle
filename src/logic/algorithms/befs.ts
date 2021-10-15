@@ -1,20 +1,23 @@
 import { isFinished } from "../utils/checkFinished";
-import { getEmptyTile } from "../utils/getEmptyTile";
+import { getTile } from "../utils/getTile";
 import { getNeighbours } from "../utils/getNeighbours";
 import { swapTiles } from "../utils/swapTiles";
+import { priorityQueue } from "../data_structures/priorityQueue";
+import { calculateManhattan } from "../heuristics/manhattan";
 
 
-//TODO
-export function* bestFirstSearch(board: number[][]) {
+export function* bestFirstSearch(board: number[][], heuristic: any) {
 	let searchNum = 0;
-	const toVisit = [board];
-	const visited = new Set(JSON.stringify(board));
+	const toVisit = priorityQueue<number[][]>();
+    const visited = new Set(JSON.stringify(board));
 	const directions = [];
+    
+    toVisit.insert(board, calculateManhattan(board));
 
-	while (toVisit.length > 0) {
-		const currentBoard = toVisit.pop() as number[][];
+    while (!toVisit.isEmpty()) {
+        const currentBoard = toVisit.pop();
 		yield currentBoard;
-		
+
 		if (isFinished(currentBoard)) {
 			console.log(`Solved, final state: ${currentBoard} \n Steps to solve: ${directions} \n Moves: ${searchNum}`);
 			return currentBoard;
@@ -22,7 +25,7 @@ export function* bestFirstSearch(board: number[][]) {
 
 		searchNum++;
 
-		const emptyTile = getEmptyTile(currentBoard);
+        const emptyTile = getTile(currentBoard, 0);
 		const neighbours = getNeighbours(currentBoard, emptyTile);
 		
 		for (let neighbour of neighbours) {
@@ -34,10 +37,10 @@ export function* bestFirstSearch(board: number[][]) {
 			
 			if (!visited.has(JSON.stringify(newBoard))) {
 				visited.add(JSON.stringify(newBoard));
-				toVisit.push(newBoard);
+				toVisit.insert(newBoard, calculateManhattan(newBoard));
 			}
 		}
-	}
+    }
 
 	console.log(`Could not solve, NxM board not solvable \n Moves: ${searchNum}`);
 }

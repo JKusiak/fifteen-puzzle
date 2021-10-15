@@ -1,7 +1,7 @@
 import { styled } from "@mui/material";
 import { FC, Fragment } from "react";
-import { ITile } from "../types";
-import Tile from "./Tile";
+import { Tile } from "../types";
+import TileElem from "./TileElem";
 
 
 const RowContainer = styled('div')(({ theme }) => ({
@@ -18,7 +18,7 @@ const Row: FC<RowProps> = (props) => {
 	function displayRow(row: number[]) {
 		return(
 			row.map((value: number, columnNumber: number,) => {
-				const tile: ITile = {
+				const tile: Tile = {
 					xPos: columnNumber, 
 					yPos: props.rowNumber, 
 					value: value
@@ -26,7 +26,7 @@ const Row: FC<RowProps> = (props) => {
 
 				return (
 					<Fragment key={columnNumber}>
-						<Tile tile={tile}/>
+						<TileElem tile={tile}/>
 					</Fragment>
 				)
 			})

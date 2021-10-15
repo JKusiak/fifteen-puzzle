@@ -1,17 +1,15 @@
 import { isFinished } from "../utils/checkFinished";
-import { getEmptyTile } from "../utils/getEmptyTile";
+import { getTile } from "../utils/getTile";
 import { getNeighbours } from "../utils/getNeighbours";
 import { swapTiles } from "../utils/swapTiles";
 
 export function* depthFirstSearch(board: number[][]) {
-	let currentDepth = 0;
 	let searchNum = 0;
 	const toVisit = [board];
 	const visited = new Set(JSON.stringify(board));
 	const directions = [];
 
 	while (toVisit.length > 0) {
-		currentDepth++;
 		const currentBoard = toVisit.pop() as number[][];
 		yield currentBoard;
 		
@@ -22,7 +20,7 @@ export function* depthFirstSearch(board: number[][]) {
 
 		searchNum++;
 
-		const emptyTile = getEmptyTile(currentBoard);
+		const emptyTile = getTile(currentBoard, 0);
 		const neighbours = getNeighbours(currentBoard, emptyTile);
 		
 		for (let neighbour of neighbours) {

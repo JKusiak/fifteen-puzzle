@@ -1,8 +1,8 @@
 import { Button, Menu, MenuItem, styled, Typography } from "@mui/material";
-import { FC, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { ActionTypes } from "../../../logic/reducers/GameReducer";
 import { GameReducerContext } from "../../../App";
-import { Algorithm, getEnumKeyByValue, Heuristic } from "../../../types";
+import { getEnumKeyByValue, Heuristic } from "../../../types";
 
 
 const StyledButton = styled(Button)(({ theme }) => ({
@@ -66,7 +66,7 @@ const HeuristicsList = () => {
 		handleClose();
 	}
 
-	function displayAlgorithms() {
+	function displayHeuristics() {
 		return (
 			<StyledMenu
 				anchorEl={anchorEl}
@@ -105,7 +105,7 @@ const HeuristicsList = () => {
 						{getEnumKeyByValue(Heuristic, gameState.heuristic)}
 					</StyledText>
 				</StyledButton>
-				{displayAlgorithms()}
+				{displayHeuristics()}
 			</MenuWrapper>
 		</>
 	)

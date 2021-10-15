@@ -1,6 +1,6 @@
-import { ITile } from "../../types";
+import { Tile } from "../../types";
 
-export function swapTiles(board: number[][], clickedTile: ITile, movableTile: ITile) {
+export function swapTiles(board: number[][], clickedTile: Tile, movableTile: Tile) {
 	board[movableTile.yPos][movableTile.xPos] = board[clickedTile.yPos][clickedTile.xPos];
 	board[clickedTile.yPos][clickedTile.xPos] = 0;
 

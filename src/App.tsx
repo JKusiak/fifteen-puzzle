@@ -7,10 +7,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { createContext, Dispatch, useReducer } from "react";
 import { Action, gameReducer } from "./logic/reducers/GameReducer";
 import { initiateGame } from "./logic/utils/initiateGame";
-import { IGame } from "./types";
+import { Game } from "./types";
 
 
-export const GameReducerContext = createContext<{ gameState: IGame, dispatch: Dispatch<Action> }>({} as any);
+export const GameReducerContext = createContext<{ gameState: Game, dispatch: Dispatch<Action> }>({} as any);
 
 
 const App = () => {

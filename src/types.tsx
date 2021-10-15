@@ -1,4 +1,4 @@
-export interface IGame {
+export interface Game {
 	rows: number;
 	columns: number;
 	moves: number;
@@ -10,15 +10,28 @@ export interface IGame {
 	isFinished: boolean;
 }
 
-export interface ITile {
+export interface Tile {
 	xPos: number;
 	yPos: number;
 	value: number;
 }
 
-export interface INeighbour {
+export interface Neighbour {
 	direction: string;
-	tile: ITile;
+	tile: Tile;
+}
+
+export interface QueueNode {
+	key: number
+	value: any,
+}
+
+export interface PriorityQueue<T> {
+	insert(item: T, priority: number): void;
+	peek(): T;
+	pop(): T;
+	size(): number;
+	isEmpty(): boolean;
 }
 
 export enum Algorithm {
@@ -35,6 +48,7 @@ export enum Heuristic {
 	NONE = "H(x)=0",
 	MD = "Manhattan distance",
 	HD = "Hamming distance",
+	ED = "Euclidean distance",
 }
 
 // overengineered solution to display chosen algorithm and heuristic as its abbreviation

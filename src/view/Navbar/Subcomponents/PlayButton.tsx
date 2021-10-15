@@ -33,7 +33,7 @@ const PlayButton: FC<PlayProps> = (props) => {
 
 	useEffect(() => {
 		if (isPlaying && gameState.algorithm !== Algorithm.NONE) {
-			const solution = chooseAlgorithm(gameState.board, gameState.algorithm);
+			const solution = chooseAlgorithm(gameState.board, gameState.algorithm, gameState.heuristic);
 			let iterateDelay: number = 0;
 
 			for (const boardState of solution) {

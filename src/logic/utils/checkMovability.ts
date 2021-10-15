@@ -1,8 +1,8 @@
-import { ITile } from "../../types";
+import { Tile } from "../../types";
 import { getNeighbours } from "./getNeighbours";
 
 
-export function isMovable(board: number[][], tile: ITile) {
+export function isMovable(board: number[][], tile: Tile) {
 	const neighbours = getNeighbours(board, tile);
 
 	const movableTile = neighbours.find(neighbour => neighbour.tile.value === 0);
