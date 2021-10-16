@@ -15,6 +15,6 @@ export function calculateManhattan(board: number[][]) {
 			totalDist += Math.abs(goalXPos - j) + Math.abs(goalYPos - i);
 		}
 	}
-        
+
     return totalDist;
 }

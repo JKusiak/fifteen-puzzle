@@ -48,7 +48,7 @@ const HeuristicsList = () => {
 	const openList = Boolean(anchorEl);
 	const { gameState, dispatch } = useContext(GameReducerContext);
 	let isAlgorithmInformed = (
-		gameState.algorithm === "Best First Search"
+		gameState.algorithm === "Greedy Best First Search"
 		|| gameState.algorithm === "A*"
 		|| gameState.algorithm === "Simplified Memory Bounded A*"
 	);

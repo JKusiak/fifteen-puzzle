@@ -4,6 +4,7 @@ import { getNeighbours } from "../utils/getNeighbours";
 import { swapTiles } from "../utils/swapTiles";
 import { priorityQueue } from "../data_structures/priorityQueue";
 import { calculateManhattan } from "../heuristics/manhattan";
+import { calculateHamming } from "../heuristics/hamming";
 
 
 export function* bestFirstSearch(board: number[][], heuristic: any) {
@@ -12,7 +13,7 @@ export function* bestFirstSearch(board: number[][], heuristic: any) {
     const visited = new Set(JSON.stringify(board));
 	const directions = [];
     
-    toVisit.insert(board, calculateManhattan(board));
+    toVisit.insert(board, heuristic(board));
 
     while (!toVisit.isEmpty()) {
         const currentBoard = toVisit.pop();
@@ -37,7 +38,7 @@ export function* bestFirstSearch(board: number[][], heuristic: any) {
 			
 			if (!visited.has(JSON.stringify(newBoard))) {
 				visited.add(JSON.stringify(newBoard));
-				toVisit.insert(newBoard, calculateManhattan(newBoard));
+				toVisit.insert(newBoard, heuristic(newBoard));
 			}
 		}
     }

@@ -15,6 +15,6 @@ export function generateFinishedBoard(rows: number, columns: number) {
 			nextTile++;
 		}
 	}
-
+	
 	return finishedBoard;
 }

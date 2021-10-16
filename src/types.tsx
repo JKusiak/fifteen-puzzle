@@ -39,7 +39,7 @@ export enum Algorithm {
 	BrFS = "Breadth First Search",
 	DFS = "Depth First Search",
 	IDDFS = "Iterative Deepening Depth First Search",
-	BeFS = "Best First Search",
+	BeFS = "Greedy Best First Search",
 	AS = "A*",
 	SMAS = "Simplified Memory Bounded A*",
 }
