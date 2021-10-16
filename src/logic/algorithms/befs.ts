@@ -3,8 +3,6 @@ import { getTile } from "../utils/getTile";
 import { getNeighbours } from "../utils/getNeighbours";
 import { swapTiles } from "../utils/swapTiles";
 import { priorityQueue } from "../data_structures/priorityQueue";
-import { calculateManhattan } from "../heuristics/manhattan";
-import { calculateHamming } from "../heuristics/hamming";
 
 
 export function* bestFirstSearch(board: number[][], heuristic: any) {
@@ -13,14 +11,17 @@ export function* bestFirstSearch(board: number[][], heuristic: any) {
     const visited = new Set(JSON.stringify(board));
 	const directions = [];
     
-    toVisit.insert(board, heuristic(board));
+	// last value is zero as in greedy version the distance from
+	// stargin node is not taken into account
+    toVisit.insert(board, heuristic(board), 0);
 
     while (!toVisit.isEmpty()) {
-        const currentBoard = toVisit.pop();
+        const currentBoardNode = toVisit.pop();
+		const currentBoard = currentBoardNode.value;
 		yield currentBoard;
 
 		if (isFinished(currentBoard)) {
-			console.log(`Solved, final state: ${currentBoard} \n Steps to solve: ${directions} \n Moves: ${searchNum}`);
+			console.log(`Solved, final state: ${currentBoard} \n Moves: ${searchNum} \n Steps to solve: ${directions}`);
 			return currentBoard;
 		}
 
@@ -38,7 +39,7 @@ export function* bestFirstSearch(board: number[][], heuristic: any) {
 			
 			if (!visited.has(JSON.stringify(newBoard))) {
 				visited.add(JSON.stringify(newBoard));
-				toVisit.insert(newBoard, heuristic(newBoard));
+				toVisit.insert(newBoard, heuristic(newBoard), 0);
 			}
 		}
     }

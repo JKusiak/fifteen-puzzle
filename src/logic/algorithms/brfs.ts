@@ -16,7 +16,7 @@ export function* breadthFirstSearch(board: number[][]) {
 		searchNum++;
 
 		if (isFinished(currentBoard)) {
-			console.log(`Solved, final state: ${currentBoard} \n Steps to solve: ${directions} \n Moves: ${searchNum}`);
+			console.log(`Solved, final state: ${currentBoard} \n Moves: ${searchNum} \n Steps to solve: ${directions}`);
 			return currentBoard;
 		}
 

@@ -2,30 +2,46 @@ import { isFinished } from "../utils/checkFinished";
 import { getTile } from "../utils/getTile";
 import { getNeighbours } from "../utils/getNeighbours";
 import { swapTiles } from "../utils/swapTiles";
+import { priorityQueue } from "../data_structures/priorityQueue";
 
-//TODO
 export function* aStar(board: number[][], heuristic: any) {
-	// let searchNum = 0;
-	// const toVisit = priorityQueue<numbern[][]>();
-    // const visited = new Set(JSON.stringify(board));
-	// const directions = [];
+    let searchNum = 0;
+	const toVisit = priorityQueue<number[][]>();
+    const visited = new Set(JSON.stringify(board));
+	const directions = [];
 
-    // toVisit.insert(start, start.totalDist(heuristic));
-	
-    // while (!toVisit.is_empty()) {
-    //     const state_e = opened.min();
-    //     const state_e_hash = state_e.hash();
-    //     const closed_dist = closed.get(state_e_hash);
-    //     if (typeof closed_dist !== 'undefined' && state_e.g >= closed_dist) {
-    //         continue;
-    //     }
-    //     if (state_e.get_h(heuristic) === 0) {
-    //         return state_e;
-    //     }
-    //     yield [state_e, 'opened: ' + opened.size() + ' closed: ' + closed.size];
-    //     closed.set(state_e_hash, state_e.g);
-    //     for (const state of state_e.expand()) {
-    //         opened.insert(state, state.totalDist(heuristic));
-    //     }
-    // }
+    toVisit.insert(board, heuristic(board), 0);
+
+    while (!toVisit.isEmpty()) {
+        const currentBoardNode = toVisit.pop();
+        const currentBoard = currentBoardNode.value;
+		yield currentBoard;
+
+		if (isFinished(currentBoard)) {
+			console.log(`Solved, final state: ${currentBoard} \n Moves: ${searchNum} \n Steps to solve: ${directions}`);
+			return currentBoard;
+		}
+
+		searchNum++;
+
+        const emptyTile = getTile(currentBoard, 0);
+		const neighbours = getNeighbours(currentBoard, emptyTile);
+		
+		for (let neighbour of neighbours) {
+			// JSON methods for deep copying two dimensional arrays and searching for it in set
+			// TODO: remove them to increase speed
+			let newBoard = JSON.parse(JSON.stringify(currentBoard));
+			newBoard = swapTiles(newBoard, neighbour.tile, emptyTile);
+			directions.push(neighbour.direction);
+			
+			if (!visited.has(JSON.stringify(newBoard))) {
+				visited.add(JSON.stringify(newBoard));
+                // discrepancy from greedy befs, the key of the queue instance consists 
+                // of the sum of heuristic value and the distance from original state
+				toVisit.insert(newBoard, heuristic(board), currentBoardNode.depth + 1);
+			}
+		}
+    }
+
+	console.log(`Could not solve, NxM board not solvable \n Moves: ${searchNum}`);
 }

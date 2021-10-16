@@ -11,7 +11,7 @@ Time complexity of the methods of priorityQueue:
 
 
 export const priorityQueue = <T>(): PriorityQueue<T> => {
-	let heap: QueueNode[] = []
+	let heap: QueueNode[] = [];
 	
 	const parent = (index: number) => Math.floor((index - 1) / 2);
 	const left = (index: number) => 2 * index + 1;
@@ -20,9 +20,9 @@ export const priorityQueue = <T>(): PriorityQueue<T> => {
 	const hasRight = (index: number) => right(index) < heap.length;
 	
 	const swap = (a: number, b: number) => {
-		const tmp = heap[a]
-		heap[a] = heap[b]
-		heap[b] = tmp
+		const tmp = heap[a];
+		heap[a] = heap[b];
+		heap[b] = tmp;
 	}
 	
 	return {
@@ -32,8 +32,8 @@ export const priorityQueue = <T>(): PriorityQueue<T> => {
 		
 		size: () => heap.length,
 
-		insert: (item, prio) => {
-			heap.push({key: prio, value: item});
+		insert: (item, heuristic, depth) => {
+			heap.push({key: heuristic + depth, value: item, depth: depth});
 			let i = heap.length -1;
 
 			while (i > 0) {
@@ -48,13 +48,11 @@ export const priorityQueue = <T>(): PriorityQueue<T> => {
 		},
 
 		pop: () => {
-			if(heap.length == 0) return null;
-			
 			swap(0, heap.length - 1);
-			const item = heap.pop();
+			const item = heap.pop() as QueueNode;
 			let current = 0;
 
-			while(hasLeft(current)) {
+			while (hasLeft(current)) {
 				let smallerChild = left(current);
 				if (hasRight(current) && heap[right(current)].key < heap[left(current)].key) {
 					smallerChild = right(current)
@@ -66,7 +64,7 @@ export const priorityQueue = <T>(): PriorityQueue<T> => {
 				current = smallerChild;
 			}
 	  
-			return item?.value;
+			return item;
 		}
 	}	  
 }

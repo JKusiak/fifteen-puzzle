@@ -24,12 +24,13 @@ export interface Neighbour {
 export interface QueueNode {
 	key: number
 	value: any,
+	depth: number,
 }
 
 export interface PriorityQueue<T> {
-	insert(item: T, priority: number): void;
+	insert(item: T, heuristic: number, depth: number): void;
 	peek(): T;
-	pop(): T;
+	pop(): QueueNode,
 	size(): number;
 	isEmpty(): boolean;
 }
@@ -46,8 +47,9 @@ export enum Algorithm {
 
 export enum Heuristic {
 	NONE = "H(x)=0",
-	MD = "Manhattan distance",
 	HD = "Hamming distance",
+	MD = "Manhattan distance",
+	LC = "Linear conflict",
 	ED = "Euclidean distance",
 }
 
