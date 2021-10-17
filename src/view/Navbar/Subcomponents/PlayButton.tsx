@@ -1,5 +1,5 @@
 import { IconButton, styled } from "@mui/material";
-import { FC, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GameReducerContext } from "../../../App";
 import PlayIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
@@ -22,11 +22,8 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
 	boxShadow: theme.shadows[3],
 }));
 
-interface PlayProps {
 
-}
-
-const PlayButton: FC<PlayProps> = (props) => {
+const PlayButton = () => {
 	const [isPlaying, setPlaying] = useState<boolean>(false);
 	const { gameState, dispatch } = useContext(GameReducerContext);
 
@@ -46,7 +43,6 @@ const PlayButton: FC<PlayProps> = (props) => {
 				}, ((10000 * iterateDelay) / gameState.playSpeed)));
 
 				dispatch({ type: ActionTypes.AddTimeout, payload: newTimeout });
-
 				iterateDelay++;
 			}
 		}

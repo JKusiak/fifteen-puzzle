@@ -25,12 +25,12 @@ export enum ActionTypes {
 	UpdateBoard = 'UPDATE BOARD',
 	SetSolved = 'SET SOLVED',
 	AddTimeout = 'ADD TIMEOUT',
-	RemoveTimeout = 'REMOVE TIMEOUT',
+	ClearTimeouts = 'CLEAR TIMEOUTS',
 }
 
 export type Action = {
 	type: ActionTypes,
-	payload: any,
+	payload?: any,
 }
 
 export const gameReducer = (state: Game, action: Action) => {
@@ -110,10 +110,10 @@ export const gameReducer = (state: Game, action: Action) => {
 				...state,
 				timeouts: [...state.timeouts, payload],
 			}
-		case ActionTypes.RemoveTimeout:
+		case ActionTypes.ClearTimeouts:
 			return {
 				...state,
-				timeouts: state.timeouts.filter((_el: any, index: number) => index !== payload),
+				timeouts: [],
 			}
 		case ActionTypes.SetSolved:
 			return {

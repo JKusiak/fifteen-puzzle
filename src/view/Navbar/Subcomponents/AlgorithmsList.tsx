@@ -1,5 +1,5 @@
 import { Button, Menu, MenuItem, styled, Typography } from "@mui/material";
-import { FC, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { ActionTypes } from "../../../logic/reducers/GameReducer";
 import { GameReducerContext } from "../../../App";
 import { Algorithm, getEnumKeyByValue } from "../../../types";

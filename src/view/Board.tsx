@@ -15,7 +15,8 @@ const Board = () => {
 	const { gameState, dispatch } = useContext(GameReducerContext);
 
 	useEffect(() => {
-		dispatch({ type: ActionTypes.CreateNewBoard, payload: {rows: gameState.rows, columns: gameState.columns}})
+		dispatch({ type: ActionTypes.ClearTimeouts});
+		dispatch({ type: ActionTypes.CreateNewBoard, payload: {rows: gameState.rows, columns: gameState.columns}});
 	}, [gameState.rows, gameState.columns])
 
 

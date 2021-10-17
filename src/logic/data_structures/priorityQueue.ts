@@ -26,9 +26,9 @@ export const priorityQueue = <T>(): PriorityQueue<T> => {
 	}
 	
 	return {
-		isEmpty: () => heap.length == 0,
+		isEmpty: () => heap.length === 0,
 
-		peek: () => heap.length == 0 ? null : heap[0].value,
+		peek: () => heap.length === 0 ? null : heap[0].value,
 		
 		size: () => heap.length,
 
