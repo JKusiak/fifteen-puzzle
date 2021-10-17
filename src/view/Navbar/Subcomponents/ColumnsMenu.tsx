@@ -20,8 +20,8 @@ const ColumnsMenu = () => {
 	return(
 		<MenuWrapper>
 			Columns {gameState.columns}
-			<ChangeButton actionType={ActionTypes.AddColumn} icon={<AddIcon/>}/>
 			<ChangeButton actionType={ActionTypes.DeleteColumn} icon={<RemoveIcon/>}/>
+			<ChangeButton actionType={ActionTypes.AddColumn} icon={<AddIcon/>}/>
 		</MenuWrapper>
 	)
 }

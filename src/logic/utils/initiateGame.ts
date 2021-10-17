@@ -14,6 +14,7 @@ export function initiateGame(rows:number, columns: number) {
 		isPlayed: false,
 		playSpeed: 50,
 		isFinished: false,
+		timeouts: [],
 	}
 	
 	return game;

@@ -29,24 +29,37 @@ interface PlayProps {
 const PlayButton: FC<PlayProps> = (props) => {
 	const [isPlaying, setPlaying] = useState<boolean>(false);
 	const { gameState, dispatch } = useContext(GameReducerContext);
-	let timeouts: NodeJS.Timeout[] = [];
 
+	// TODO this is a sad solution and it surely could be implemented better
+	// try to make it only compute once and display depending on the button clicks
 	useEffect(() => {
 		if (isPlaying && gameState.algorithm !== Algorithm.NONE) {
 			const solution = chooseAlgorithm(gameState.board, gameState.algorithm, gameState.heuristic);
 			let iterateDelay: number = 0;
 
 			for (const boardState of solution) {
-				timeouts.push(setTimeout(() => {
+				const newTimeout = (setTimeout(() => {
 					dispatch({ type: ActionTypes.UpdateBoard, payload: boardState });
 					if (isFinished(boardState as number[][])) {
 						dispatch({ type: ActionTypes.SetSolved, payload: true });
 					}
-				}, ((10000 * iterateDelay) / gameState.playSpeed )));
+				}, ((10000 * iterateDelay) / gameState.playSpeed)));
+
+				dispatch({ type: ActionTypes.AddTimeout, payload: newTimeout });
+
 				iterateDelay++;
 			}
 		}
 	}, [isPlaying])
+
+	useEffect(() => {
+		if (!isPlaying) {
+			for (let i = 0; i < gameState.timeouts.length; i++) {
+				clearTimeout(gameState.timeouts[i]);
+			}
+		}
+	}, [isPlaying])
+
 
 	return (
 		<>

@@ -8,6 +8,7 @@ export interface Game {
 	isPlayed: boolean;
 	playSpeed: number;
 	isFinished: boolean;
+	timeouts: any;
 }
 
 export interface Tile {
