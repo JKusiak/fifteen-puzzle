@@ -22,14 +22,20 @@ export interface Neighbour {
 	tile: Tile;
 }
 
+export interface ArrayNode {
+	value: any,
+	direction: string,
+}
+
 export interface QueueNode {
 	key: number
 	value: any,
 	depth: number,
+	direction: string,
 }
 
 export interface PriorityQueue<T> {
-	insert(item: T, heuristic: number, depth: number): void;
+	insert(item: T, heuristic: number, depth: number, direction: string): void;
 	peek(): T;
 	pop(): QueueNode,
 	size(): number;

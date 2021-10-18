@@ -2,23 +2,30 @@ import { isFinished } from "../utils/checkFinished";
 import { swapTiles } from "../utils/swapTiles";
 import { getTile } from "../utils/getTile";
 import { getNeighbours } from "../utils/getNeighbours";
+import { ArrayNode } from "../../types";
 
 
 export function* breadthFirstSearch(board: number[][]) {
 	let searchNum = 0;
-	const toVisit = [board];
+	const toVisit: [ArrayNode] = [{
+		value: board,
+		direction: 'initial',
+	}];
 	const visited = new Set(JSON.stringify(board));
 	const directions = [];
 
 	while (toVisit.length > 0) {
-		const currentBoard = toVisit.shift() as number[][];
+		const currentBoardNode = toVisit.shift() as ArrayNode;
+		const currentBoard = currentBoardNode.value;
+		directions.push(currentBoardNode.direction);
 		yield currentBoard;
-		searchNum++;
-
+		
 		if (isFinished(currentBoard)) {
 			console.log(`Solved, final state: ${currentBoard} \n Moves: ${searchNum} \n Steps to solve: ${directions}`);
 			return currentBoard;
 		}
+
+		searchNum++;
 
 		const emptyTile = getTile(currentBoard, 0);
 		const neighbours = getNeighbours(currentBoard, emptyTile);
@@ -26,9 +33,11 @@ export function* breadthFirstSearch(board: number[][]) {
 		for (let neighbour of neighbours) {
 			// JSON methods for deep copying two dimensional arrays and searching for it in set
 			// TODO: remove them to increase speed
-			let newBoard = JSON.parse(JSON.stringify(currentBoard));
-			newBoard = swapTiles(newBoard, neighbour.tile, emptyTile);
-			directions.push(neighbour.direction);
+			let newBoard = {
+				value: JSON.parse(JSON.stringify(currentBoard)),
+				direction: neighbour.direction,
+			};
+			newBoard.value = swapTiles(newBoard.value, neighbour.tile, emptyTile);
 			
 			if (!visited.has(JSON.stringify(newBoard))) {
 				visited.add(JSON.stringify(newBoard));

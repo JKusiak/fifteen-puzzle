@@ -11,13 +11,14 @@ export function* bestFirstSearch(board: number[][], heuristic: any) {
     const visited = new Set(JSON.stringify(board));
 	const directions = [];
     
-	// last value is zero as in greedy version the distance from
-	// stargin node is not taken into account
-    toVisit.insert(board, heuristic(board), 0);
+	// last value is always zero as in greedy version the 
+	// distance from starting node is not taken into account
+    toVisit.insert(board, heuristic(board), 0, 'initial');
 
     while (!toVisit.isEmpty()) {
         const currentBoardNode = toVisit.pop();
 		const currentBoard = currentBoardNode.value;
+		directions.push(currentBoardNode.direction);
 		yield currentBoard;
 
 		if (isFinished(currentBoard)) {
@@ -35,11 +36,11 @@ export function* bestFirstSearch(board: number[][], heuristic: any) {
 			// TODO: remove them to increase speed
 			let newBoard = JSON.parse(JSON.stringify(currentBoard));
 			newBoard = swapTiles(newBoard, neighbour.tile, emptyTile);
-			directions.push(neighbour.direction);
-			
+			console.log(neighbour);
 			if (!visited.has(JSON.stringify(newBoard))) {
+				
 				visited.add(JSON.stringify(newBoard));
-				toVisit.insert(newBoard, heuristic(newBoard), 0);
+				toVisit.insert(newBoard, heuristic(newBoard), 0, neighbour.direction);
 			}
 		}
     }

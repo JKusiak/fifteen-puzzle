@@ -32,13 +32,13 @@ export const priorityQueue = <T>(): PriorityQueue<T> => {
 		
 		size: () => heap.length,
 
-		insert: (item, heuristic, depth) => {
-			heap.push({key: heuristic + depth, value: item, depth: depth});
+		insert: (item, heuristic, depth, direction) => {
+			heap.push({key: heuristic + depth, value: item, depth: depth, direction: direction});
 			let i = heap.length -1;
 
 			while (i > 0) {
 			  const p = parent(i);
-			  if(heap[p].key < heap[i].key) break;
+			  if (heap[p].key < heap[i].key) break;
 
 			  const tmp = heap[i];
 			  heap[i] = heap[p];

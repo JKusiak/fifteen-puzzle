@@ -6,7 +6,7 @@ import { calculateManhattan } from "./manhattan";
 	- t1 and t2 are in the same line
 	- they should be in that line
 	- t1 is to the right of t2
-	- correct position of t1 is to the left of the correct position of t2.
+	- correct position of t1 is to the left of the correct position of t2
 */
 export function calculateLinearConflict(board: number[][]) {
 	const height = board.length;
@@ -21,10 +21,8 @@ export function calculateLinearConflict(board: number[][]) {
 			const goalXPos = goalCoords.xPos;
 			const goalYPos = goalCoords.yPos;
 
-			const isCorrect = (i === goalYPos && j === goalXPos);
-
-			// if the tile is in correct position or is empty, skip
-			if (isCorrect || currentTileVal === 0) {
+			// if is empty, skip
+			if (currentTileVal === 0) {
 				continue;
 			}
 
@@ -45,7 +43,9 @@ export function calculateLinearConflict(board: number[][]) {
 					// add to linear conflict
 					if (goalNYPos === goalYPos && goalNXPos <= goalXPos) totalConflicts += 1;
 				}
-			} else if (j === goalXPos) {
+			}
+			
+			if (j === goalXPos) {
 				// if the tile is in correct column, search conflicts
 				// get next tiles in a column
 				for (let k = i + 1; k < height; k++) {
@@ -63,7 +63,6 @@ export function calculateLinearConflict(board: number[][]) {
 					if (goalNXPos === goalXPos && goalNYPos <= goalYPos) totalConflicts += 1;
 				}
 			}
-			
 		}
 	}
 

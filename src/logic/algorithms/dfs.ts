@@ -2,15 +2,22 @@ import { isFinished } from "../utils/checkFinished";
 import { getTile } from "../utils/getTile";
 import { getNeighbours } from "../utils/getNeighbours";
 import { swapTiles } from "../utils/swapTiles";
+import { ArrayNode, QueueNode } from "../../types";
+
 
 export function* depthFirstSearch(board: number[][]) {
 	let searchNum = 0;
-	const toVisit = [board];
+	const toVisit: [ArrayNode] = [{
+		value: board,
+		direction: 'initial',
+	}];
 	const visited = new Set(JSON.stringify(board));
 	const directions = [];
 
 	while (toVisit.length > 0) {
-		const currentBoard = toVisit.pop() as number[][];
+		const currentBoardNode = toVisit.pop() as ArrayNode;
+        const currentBoard = currentBoardNode.value;
+		directions.push(currentBoardNode.direction);
 		yield currentBoard;
 		
 		if (isFinished(currentBoard)) {
@@ -26,9 +33,11 @@ export function* depthFirstSearch(board: number[][]) {
 		for (let neighbour of neighbours) {
 			// JSON methods for deep copying two dimensional arrays and searching for it in set
 			// TODO: remove them to increase speed
-			let newBoard = JSON.parse(JSON.stringify(currentBoard));
-			newBoard = swapTiles(newBoard, neighbour.tile, emptyTile);
-			directions.push(neighbour.direction);
+			let newBoard = {
+				value: JSON.parse(JSON.stringify(currentBoard)),
+				direction: neighbour.direction,
+			};
+			newBoard.value = swapTiles(newBoard.value, neighbour.tile, emptyTile);
 			
 			if (!visited.has(JSON.stringify(newBoard))) {
 				visited.add(JSON.stringify(newBoard));
