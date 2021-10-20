@@ -5,7 +5,7 @@ export interface Game {
 	board: number[][];
 	algorithm: Algorithm;
 	heuristic: Heuristic;
-	isPlayed: boolean;
+	isPlaying: boolean;
 	playSpeed: number;
 	isFinished: boolean;
 	timeouts: any;

@@ -21,7 +21,7 @@ export function* aStar(board: number[][], heuristic: any) {
 
 		if (isFinished(currentBoard)) {
 			console.log(`Solved, final state: ${currentBoard} \n Moves: ${searchNum} \n Steps to solve: ${directions}`);
-			return currentBoard;
+			return true;
 		}
 
 		searchNum++;
@@ -46,4 +46,5 @@ export function* aStar(board: number[][], heuristic: any) {
     }
 
 	console.log(`Could not solve, NxM board not solvable \n Moves: ${searchNum}`);
+	return false;
 }

@@ -22,7 +22,7 @@ export function* depthFirstSearch(board: number[][]) {
 		
 		if (isFinished(currentBoard)) {
 			console.log(`Solved, final state: ${currentBoard} \n Moves: ${searchNum} \n Steps to solve: ${directions}`);
-			return currentBoard;
+			return true;
 		}
 
 		searchNum++;
@@ -47,4 +47,5 @@ export function* depthFirstSearch(board: number[][]) {
 	}
 
 	console.log(`Could not solve, NxM board not solvable \n Moves: ${searchNum}`);
+	return false;
 }

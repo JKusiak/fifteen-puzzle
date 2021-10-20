@@ -20,7 +20,7 @@ export enum ActionTypes {
 	SwapTiles = 'SWAP TILES',
 	ChooseAlgorithm = 'CHOOSE ALGORITHM',
 	ChooseHeuristic = 'CHOOSE HEURISTIC',
-	SetPlayed = 'SET PLAYED',
+	SetPlaying = 'SET PLAYED',
 	SetSpeed = 'SET SPEED',
 	UpdateBoard = 'UPDATE BOARD',
 	SetSolved = 'SET SOLVED',
@@ -88,10 +88,10 @@ export const gameReducer = (state: Game, action: Action) => {
 				...state,
 				heuristic: payload,
 			}
-		case ActionTypes.SetPlayed:
+		case ActionTypes.SetPlaying:
 			return {
 				...state,
-				isPlayed: payload,
+				isPlaying: payload,
 			}
 		case ActionTypes.SetSpeed:
 			return {
@@ -104,7 +104,6 @@ export const gameReducer = (state: Game, action: Action) => {
 				board: payload,
 				moves: state.moves + 1,
 			}
-		
 		case ActionTypes.AddTimeout:
 			return {
 				...state,

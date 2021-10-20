@@ -56,7 +56,7 @@ export function* iterativeDeepeningDFS(board: number[][]) {
 
 		if (equalSets(prevVisited, visited)) {
 			console.log(`Board not solvable \n Moves: ${searchNum}`);
-			return;
+			return false;
 		}
 
 		prevVisited = new Set(visited);

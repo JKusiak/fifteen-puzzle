@@ -11,7 +11,7 @@ export function initiateGame(rows:number, columns: number) {
 		board: newBoard,
 		algorithm: Algorithm.NONE,
 		heuristic: Heuristic.NONE,
-		isPlayed: false,
+		isPlaying: false,
 		playSpeed: 50,
 		isFinished: false,
 		timeouts: [],

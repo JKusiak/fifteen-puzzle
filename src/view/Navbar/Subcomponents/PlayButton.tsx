@@ -24,13 +24,12 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
 
 
 const PlayButton = () => {
-	const [isPlaying, setPlaying] = useState<boolean>(false);
 	const { gameState, dispatch } = useContext(GameReducerContext);
 
 	// TODO this is a sad solution and it surely could be implemented better
 	// try to make it only compute once and display depending on the button clicks
 	useEffect(() => {
-		if (isPlaying && gameState.algorithm !== Algorithm.NONE) {
+		if (gameState.isPlaying && gameState.algorithm !== Algorithm.NONE) {
 			const solution = chooseAlgorithm(gameState.board, gameState.algorithm, gameState.heuristic);
 			let iterateDelay: number = 0;
 
@@ -46,21 +45,27 @@ const PlayButton = () => {
 				iterateDelay++;
 			}
 		}
-	}, [isPlaying])
+	}, [gameState.isPlaying])
 
 	useEffect(() => {
-		if (!isPlaying) {
+		if (!gameState.isPlaying) {
 			for (let i = 0; i < gameState.timeouts.length; i++) {
+				dispatch({ type: ActionTypes.ClearTimeouts });
 				clearTimeout(gameState.timeouts[i]);
 			}
 		}
-	}, [isPlaying])
+	}, [gameState.isPlaying])
+
+
+	function handlePlay() {
+		dispatch({ type: ActionTypes.SetPlaying, payload: !gameState.isPlaying})
+	}
 
 
 	return (
 		<>
-			<StyledIconButton onClick={() => setPlaying(!isPlaying)}>
-				{isPlaying ? <PauseIcon /> : <PlayIcon />}
+			<StyledIconButton onClick={handlePlay}>
+				{gameState.isPlaying ? <PauseIcon /> : <PlayIcon />}
 			</StyledIconButton>
 		</>
 	)

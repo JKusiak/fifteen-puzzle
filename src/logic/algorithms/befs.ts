@@ -7,6 +7,7 @@ import { priorityQueue } from "../data_structures/priorityQueue";
 
 export function* bestFirstSearch(board: number[][], heuristic: any) {
 	let searchNum = 0;
+	let lastBoard;
 	const toVisit = priorityQueue<number[][]>();
     const visited = new Set(JSON.stringify(board));
 	const directions = [];
@@ -18,6 +19,7 @@ export function* bestFirstSearch(board: number[][], heuristic: any) {
     while (!toVisit.isEmpty()) {
         const currentBoardNode = toVisit.pop();
 		const currentBoard = currentBoardNode.value;
+		lastBoard = currentBoard;
 		directions.push(currentBoardNode.direction);
 		yield currentBoard;
 
@@ -36,7 +38,6 @@ export function* bestFirstSearch(board: number[][], heuristic: any) {
 			// TODO: remove them to increase speed
 			let newBoard = JSON.parse(JSON.stringify(currentBoard));
 			newBoard = swapTiles(newBoard, neighbour.tile, emptyTile);
-			console.log(neighbour);
 			if (!visited.has(JSON.stringify(newBoard))) {
 				
 				visited.add(JSON.stringify(newBoard));
@@ -46,4 +47,5 @@ export function* bestFirstSearch(board: number[][], heuristic: any) {
     }
 
 	console.log(`Could not solve, NxM board not solvable \n Moves: ${searchNum}`);
+	return lastBoard;
 }

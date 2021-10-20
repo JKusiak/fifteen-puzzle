@@ -11,7 +11,7 @@ const palette = {
 		light: '#fffffb',
 		main: '#d7ccc8',
 		dark: '#a69b97',
-	}
+	},
 }
 
 export const theme = createTheme({
