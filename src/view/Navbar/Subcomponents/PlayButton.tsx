@@ -1,4 +1,4 @@
-import { IconButton, styled } from "@mui/material";
+import { breadcrumbsClasses, IconButton, styled } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { GameReducerContext } from "../../../App";
 import PlayIcon from '@mui/icons-material/PlayArrow';
@@ -34,15 +34,18 @@ const PlayButton = () => {
 			let iterateDelay: number = 0;
 
 			for (const boardState of solution) {
-				const newTimeout = (setTimeout(() => {
-					dispatch({ type: ActionTypes.UpdateBoard, payload: boardState });
-					if (isFinished(boardState as number[][])) {
-						dispatch({ type: ActionTypes.SetSolved, payload: true });
-					}
-				}, ((10000 * iterateDelay) / gameState.playSpeed)));
-
-				dispatch({ type: ActionTypes.AddTimeout, payload: newTimeout });
-				iterateDelay++;
+				// limitation on amount of timeouts to avoid freez on long solutions
+				if (iterateDelay < 500) {
+					const newTimeout = (setTimeout(() => {
+						dispatch({ type: ActionTypes.UpdateBoard, payload: boardState });
+						if (isFinished(boardState as number[][])) {
+							dispatch({ type: ActionTypes.SetSolved, payload: true });
+						}
+					}, ((10000 * iterateDelay) / gameState.playSpeed)));
+	
+					dispatch({ type: ActionTypes.AddTimeout, payload: newTimeout });
+					iterateDelay++;
+				}
 			}
 		}
 	}, [gameState.isPlaying])
