@@ -5,7 +5,6 @@ import { bestFirstSearch } from "./befs";
 import { breadthFirstSearch } from "./brfs";
 import { depthFirstSearch } from "./dfs";
 import { iterativeDeepeningDFS } from "./idfs";
-import { simplifiedMemoryBoundedAStar } from "./smas";
 
 export function chooseAlgorithm(board: number[][], algorithm: Algorithm, heuristic: Heuristic) {
 	const chosenHeuristic = chooseHeuristic(heuristic);
@@ -28,8 +27,5 @@ export function chooseAlgorithm(board: number[][], algorithm: Algorithm, heurist
 		case Algorithm.AS:
 			const asSolved = aStar(board, chosenHeuristic);
 			return asSolved;
-		case Algorithm.SMAS:
-			const smasSolved = simplifiedMemoryBoundedAStar(board, chosenHeuristic);
-			return smasSolved;
 	}
 }

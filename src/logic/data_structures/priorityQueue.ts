@@ -61,8 +61,9 @@ export const priorityQueue = <T>(): PriorityQueue<T> => {
 			// starting from the root, in case of draw favor the one closer to the initial state (lower depth)
 			while (hasLeft(current)) {
 				let smallerChild = left(current);
-				if ((hasRight(current) && (heap[right(current)].key < heap[left(current)].key)
-					|| hasRight(current) && (heap[right(current)].key === heap[left(current)].key && heap[right(current)].depth < heap[left(current)].depth))) {
+
+				if((hasRight(current) && heap[right(current)].key < heap[left(current)].key)
+				|| (hasRight(current) && heap[right(current)].key === heap[left(current)].key && heap[right(current)].depth < heap[left(current)].depth)) {
 					smallerChild = right(current);
 				}
 		

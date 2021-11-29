@@ -39,8 +39,8 @@ export function* breadthFirstSearch(board: number[][]) {
 			};
 			newBoard.value = swapTiles(newBoard.value, neighbour.tile, emptyTile);
 			
-			if (!visited.has(JSON.stringify(newBoard))) {
-				visited.add(JSON.stringify(newBoard));
+			if (!visited.has(JSON.stringify(newBoard.value))) {
+				visited.add(JSON.stringify(newBoard.value));
 				toVisit.push(newBoard);
 			}
 		}

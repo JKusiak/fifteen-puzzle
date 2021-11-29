@@ -19,8 +19,8 @@ const RowsMenu = () => {
 	return(
 		<MenuWrapper>
 			Rows {gameState.rows}
-			<ChangeButton actionType={ActionTypes.DeleteRow} icon={<RemoveIcon/>}/>
 			<ChangeButton actionType={ActionTypes.AddRow} icon={<AddIcon/>}/>
+			<ChangeButton actionType={ActionTypes.DeleteRow} icon={<RemoveIcon/>}/>
 		</MenuWrapper>
 	)
 }

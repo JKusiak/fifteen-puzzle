@@ -49,7 +49,6 @@ export enum Algorithm {
 	IDDFS = "Iterative Deepening Depth First Search",
 	BeFS = "Greedy Best First Search",
 	AS = "A*",
-	SMAS = "Simplified Memory Bounded A*",
 }
 
 export enum Heuristic {

@@ -50,7 +50,6 @@ const HeuristicsList = () => {
 	let isAlgorithmInformed = (
 		gameState.algorithm === "Greedy Best First Search"
 		|| gameState.algorithm === "A*"
-		|| gameState.algorithm === "Simplified Memory Bounded A*"
 	);
 
 	function handleClose() {
